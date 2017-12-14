@@ -56,21 +56,22 @@ function spotifyThisSong() {
         id: '5883431ae2aa46cbaca46b9f120b4935',
         secret: '26f8a63fed57473eb8c54258446cd963'
     });
-
-    spotify.search({ type: 'track', query: input, limit: 3 }, function (err, data) {
+//Added parameter limit to limit the number of searches returned
+    spotify.search({ type: 'track', query: input, limit: 5 }, function (err, data) {
         if (err) {
             console.log("Error")
         }
 
         else {
+            //Created a variable for the beginning path of all the data we need to pull
             var song = data.tracks.items;
             for (var i = 0; i < song.length; i++) {
                 if (song[i]) {
                     var spotifyResults =
-                        "Artist: " + song[i].artists[0].name + "\r\n" +
-                        "Song: " + song[i].name + "\r\n" +
-                        "Album: " + song[i].album.name + "\r\n" +
-                        "Preview Url: " + song[i].preview_url + "\r\n" +
+                        "Artist: " + song[i].artists[0].name + "\n" +
+                        "Song: " + song[i].name + "\n" +
+                        "Album: " + song[i].album.name + "\n" +
+                        "Preview Url: " + song[i].preview_url + "\n" +
 
                         console.log(spotifyResults);
                 }
@@ -111,21 +112,19 @@ var url = 'http://www.omdbapi.com/?apikey=' + omdbapiKey + '&t=' + title + '&y=&
 
 }
 
+// I couldnt figure out how to select the text after is is parsed to be inputed as a command
 function textFile() {
 fs.readFile('random.txt', "utf8", function(err,data) {
-    console.log(data)
+  var text = data.split(', ')
+  console.log(text)
     if (err) {
         console.log(error)
     }
-});
+    else {
 
-var textFile = data.split(", ");
-console.log(textFile)
-
-    if (textFile.length == 2) {
-        pick(textFile[0], textFile[1]);
-    } else if (textFile.length == 1) {
-        pick(textFile[0]);
+        console.log(data);
     }
+});
 }
 
+// textFile();
